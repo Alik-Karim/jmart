@@ -1,35 +1,50 @@
 package AbdulMalikKarimAJmartMR;
 
 
-/**
- * Write a description of class Jmart here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-public class Jmart
+class Jmart
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Jmart
-     */
-    public Jmart()
+    private Jmart() {}
+    
+    public static void main (String[] args)
     {
-        // initialise instance variables
-        x = 0;
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
+    
+    public static int getPromo()
     {
-        // put your code here
-        return x + y;
+        return 0;
+    }
+    
+    public static String getCustomer()
+    {
+        return "oop";
+    }
+    public static float getDiscountPercentage(int before, int after)
+    {
+        if (before < after || before == after) return 0.0f; 
+        int cut = before - after;
+        return 100.0f * cut / before;
+    }
+    public static int getDiscountedPrice(int price, float discountPercentage)
+    {
+        if (discountPercentage >= 100.0f) return 0;
+        float cut = price * discountPercentage / 100.0f;
+        return price - (int) cut; 
+    }
+    public static int getOriginalPrice(int discountedPrice, float discountPercentage)
+    {
+        float divider = 100.0f - discountPercentage;
+        return (int) (100 * discountedPrice / divider);
+    }
+    public static float getCommissionMultiplier()
+    {
+        return 0.05f;
+    }
+    public static int getAdjustedPrice(int price)
+    {
+        return price + getAdminFee(price);
+    }
+    public static int getAdminFee(int price)
+    {
+        return (int) (getCommissionMultiplier() * price);
     }
 }
