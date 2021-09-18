@@ -48,11 +48,15 @@ class Jmart
 //        return (int) (getCommissionMultiplier() * price);
 //    }
      
-    public static void main(String[] args){
-        create();
+   
+    public static void main (String[] args){
+      create();
     }
     
-    public void create(String name,int weight,boolean conditionUsed, PriceTag priceTag,ProductCategory category){
-        Product product = new Product(name,weight,conditionUsed,PriceTag,category);
+    public static Product create(){
+    PriceTag pt = new PriceTag(900,0);
+    Product p = new Product("Babon",20,false,pt,ProductCategory.BOOK);
+    return p;
     }
+
 }
