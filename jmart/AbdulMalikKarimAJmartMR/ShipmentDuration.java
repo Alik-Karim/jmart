@@ -16,10 +16,10 @@ public class ShipmentDuration
     }
     
     public ShipmentDuration(ShipmentDuration[]){
-        
+        return 0;
     }
     
     public boolean isDuration(ShipemntDuration){
-        
+        return 0;
     }
 }
