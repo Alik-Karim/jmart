@@ -50,13 +50,24 @@ class Jmart
      
    
     public static void main (String[] args){
-      create();
     }
     
-    public static Product create(){
-    PriceTag pt = new PriceTag(900,0);
-    Product p = new Product("Babon",20,false,pt,ProductCategory.BOOK);
-    return p;
+    public static  Product createProduct(){
+        return 0;
     }
+    
+    public static Coupon createCoupon(){
+        return 0;
+    }
+    
+    public static ShipmentDuration createShipmentDuration(){
+        return 0;
+    }
+    
+//    public static Product create(){
+//    PriceTag pt = new PriceTag(900,0);
+//    Product p = new Product("Babon",20,false,pt,ProductCategory.BOOK);
+//    return p;
+//    }
 
 }
