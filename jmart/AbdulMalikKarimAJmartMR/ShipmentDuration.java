@@ -15,11 +15,11 @@ public class ShipmentDuration
         this.bit=bit;
     }
     
-    public ShipmentDuration(ShipmentDuration[]){
-        return 0;
+    public ShipmentDuration(ShipmentDuration[]...){
+        
     }
     
-    public boolean isDuration(ShipemntDuration){
+    public boolean isDuration(ShipemntDuration reference){
         return 0;
     }
 }
