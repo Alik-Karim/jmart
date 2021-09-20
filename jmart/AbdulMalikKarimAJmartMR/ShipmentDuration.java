@@ -19,7 +19,7 @@ public class ShipmentDuration
         
     }
     
-    public boolean isDuration(ShipemntDuration reference){
+    public boolean isDuration(ShipmentDuration reference){
         return 0;
     }
 }
