@@ -7,7 +7,7 @@ package AbdulMalikKarimAJmartMR;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Product
+public abstract class Product extends Recognizable implements FileParser
 {
     private static int idCounter = 0;
     public int id;
@@ -18,7 +18,8 @@ public class Product
     public ProductRating rating;
     public ProductCategory category;
     
-    public Product (String name,int weight,boolean conditionUsed, PriceTag priceTag, ProductCategory category){
+    public Product (int id,String name,int weight,boolean conditionUsed, PriceTag priceTag, ProductCategory category){
+        super(id);
         id = idCounter;
         idCounter++;
         this.name = name;

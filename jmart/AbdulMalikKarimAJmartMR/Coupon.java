@@ -7,7 +7,7 @@ package AbdulMalikKarimAJmartMR;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Coupon
+public abstract class Coupon extends Recognizable implements FileParser
 {
     public String name;
     public int code;
@@ -16,7 +16,8 @@ public class Coupon
     public double minimum;
     private boolean used;
     
-    public Coupon(String name, int code, Type type, double cut, double minimum){
+    public Coupon(int id,String name, int code, Type type, double cut, double minimum){
+        super(id);
         this.name = name;
         this.code = code;
         this.type = type;
@@ -29,21 +30,25 @@ public class Coupon
         return used;
     }
     
-    public boolean canApply(PriceTag pricetag){
-        if(pricetag.getAdjustedPrice() >= minimum & used == false){
-            return true;
-        }else{
+    public boolean canApply(PriceTag priceTag){
+        if (used || priceTag.getAdjustedPrice() < minimum)
             return false;
-        }
+        return true;
     }
     
-    public double apply(PriceTag pricetag){
-        this.used = true;
-        if(this.type == Type.DISCOUNT){
-            return (pricetag.getAdjustedPrice()*((100 - this.cut)/100));
-        }else{
-            return (pricetag.getAdjustedPrice() - this.cut);
+    public double apply(PriceTag priceTag){
+        used = true;
+        double adjustedPrice = priceTag.getAdjustedPrice();
+        switch (type)
+        {
+            case REBATE:
+                if (adjustedPrice >= cut) return 0.0;
+                return adjustedPrice - cut;
+            case DISCOUNT:
+                if (cut >= 100.0) return 0.0;
+                return adjustedPrice - adjustedPrice * cut;
         }
+        return 0.0;
     }
     
     public enum Type

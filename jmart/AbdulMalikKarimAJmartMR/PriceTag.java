@@ -31,15 +31,15 @@ public class PriceTag
     }
     
     public double getAdminFee(){
-        if (getDiscountedPrice()< BOTTOM_PRICE){
+        double discountedPrice = getDiscountedPrice();
+        if (discountedPrice < BOTTOM_PRICE)
             return BOTTOM_FEE;
-        }else{
-            return getDiscountedPrice() * COMMISSION_MULTIPLIER;
-        }
+        return COMMISSION_MULTIPLIER * discountedPrice;
     }
     
     private double getDiscountedPrice(){
         if(this.discount >= 100.0) return 0.0;
-        return (this.price - (this.price * (this.discount/100.0f)));
+        double cut = price * discount / 100.0;
+        return price - cut;
     }
 }
