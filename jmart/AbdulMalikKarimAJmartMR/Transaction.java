@@ -9,7 +9,7 @@ package AbdulMalikKarimAJmartMR;
  */
 public abstract class Transaction extends Recognizable
 {
-    public String time;
+    public String time = "Time";
     public int buyerId;
     public int storeId;
     public Rating rating = Rating.NONE;
