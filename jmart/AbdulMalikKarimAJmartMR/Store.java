@@ -20,7 +20,14 @@ public class Store extends Recognizable implements FileParser
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
-
+    
+    public String toString(){
+        return
+        "Name : "+this.name+
+        "\nemail : "+this.address+
+        "\nphoneNumber : "+this.phoneNumber;
+    }
+    
     @Override
     public boolean read(String content){
         return false;

@@ -20,6 +20,13 @@ public class Account extends Recognizable implements FileParser
         this.email = email;
         this.password = password;
     }
+    
+    public String toString(){
+        return
+        "Name : "+this.name+
+        "\nemail : "+this.email+
+        "\npassword : "+this.password;
+    }
 
     @Override
     public boolean read(String content){
