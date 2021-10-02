@@ -1,24 +1,27 @@
 package AbdulMalikKarimAJmartMR;
 
 
-/**
- * Write a description of class Complaint here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+import java.util.Date;
 public class Complaint extends Recognizable implements FileParser
 {
-    public String date;
+    public final Date date;
     public String desc;
 
-    public Complaint(int id, String desc) {
+    public Complaint(int id, String desc)
+    {
         super(id);
         this.desc = desc;
+        this.date = new Date();
     }
 
     @Override
-    public boolean read(String content){
+    public boolean read(String content) {
+        // TODO Auto-generated method stub
         return false;
     }
+    
+//    public static void main(String[] args)
+//    {
+//    	System.out.print(new Complaint(0, "sdas").date);
+//    }
 }

@@ -1,77 +1,11 @@
 package AbdulMalikKarimAJmartMR;
 
 
-class Jmart
-{
-//    private Jmart() {}
-    
-//    public static void main (String[] args)
-//    {
-//    }
-    
-//    public static int getPromo()
-//    {
-//        return 0;
-//    }
-    
-//    public static String getCustomer()
-//    {
-//        return "oop";
-//    }
-//    public static float getDiscountPercentage(int before, int after)
-//    {
-//        if (before < after || before == after) return 0.0f; 
-//        int cut = before - after;
-//        return 100.0f * cut / before;
-//    }
-//    public static int getDiscountedPrice(int price, float discountPercentage)
-//    {
-//        if (discountPercentage >= 100.0f) return 0;
-//        float cut = price * discountPercentage / 100.0f;
-//        return price - (int) cut; 
-//    }
-//    public static int getOriginalPrice(int discountedPrice, float discountPercentage)
-//    {
-//       float divider = 100.0f - discountPercentage;
-//       return (int) (100 * discountedPrice / divider);
-//    }
-//    public static float getCommissionMultiplier()
-//    {
-//        return 0.05f;
-//    }
-//    public static int getAdjustedPrice(int price)
-//    {
-//        return price + getAdminFee(price);
-//    }
-//   public static int getAdminFee(int price)
-//    {
-//        return (int) (getCommissionMultiplier() * price);
-//    }
-     
-   
-    public static void main (String[] args)
-    {
-    }
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    public static Product createProduct()
-    {
-        return new Product("Item", 0, false, new PriceTag(100.0), ProductCategory.BOOK);
+class Jmart {
+    public static void main(String[] args) {
+    	System.out.println(Shipment.Duration.KARGO.getEstimatedArrival(new Date()));
     }
-
-    public static Coupon createCoupun()
-    {
-        return new Coupon("My Coupun", 21312, Coupon.Type.REBATE, 10000, 50000);
-    }
-
-    public static ShipmentDuration createShipmentDuration()
-    {
-        return new ShipmentDuration(ShipmentDuration.INSTANT, ShipmentDuration.KARGO);
-    }
-    
-//    public static Product create(){
-//    PriceTag pt = new PriceTag(900,0);
-//    Product p = new Product("Babon",20,false,pt,ProductCategory.BOOK);
-//    return p;
-//    }
-
 }
