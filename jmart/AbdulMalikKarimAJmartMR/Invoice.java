@@ -1,6 +1,7 @@
 package AbdulMalikKarimAJmartMR;
 
 import java.util.Date;
+import java.util.ArrayList;
 
 public class Invoice extends Recognizable implements FileParser
 {
@@ -10,7 +11,14 @@ public class Invoice extends Recognizable implements FileParser
     public int complaintId;
     public Rating rating;
     public Status status;
-
+    public ArrayList<Record> history = new ArrayList<Record>();
+    
+    class Record{
+        public Status status;
+        public Date date;
+        public String message;
+    }
+        
     public enum Status {
         WAITING_CONFIRMATION,
         CANCELLED,
@@ -37,7 +45,7 @@ public class Invoice extends Recognizable implements FileParser
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
     }
-
+    
     @Override
     public boolean read(String content){
         return false;
