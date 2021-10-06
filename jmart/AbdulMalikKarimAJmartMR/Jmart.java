@@ -9,5 +9,7 @@ class Jmart {
         System.out.println(Shipment.Duration.KARGO.getEstimatedArrival(new Date()));
         Account account = new Account(212," Acong"," aslabnetlab@gmail.com "," OOPsusahbet ");
         account.validate();
+        
+        System.out.println("Hello from Eclipe!");
     }
 }
