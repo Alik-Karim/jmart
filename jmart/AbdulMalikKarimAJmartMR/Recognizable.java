@@ -7,32 +7,46 @@ package AbdulMalikKarimAJmartMR;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Recognizable
+public class Recognizable implements Comparable<Recognizable>
 {
-    // instance variables - replace the example below with your own
     public final int id;
-    
+
     protected Recognizable(int id){
         this.id = id;
     }
-    
-    public boolean equals(Object object){
-        if(object instanceof Recognizable){
-            Recognizable recognizable = (Recognizable)object;
-            if(recognizable.id == this.id){
-                return true;
-            }else{
-                return false;
-            }
-        }
-        return false;
+
+    @Override
+    public int compareTo(Recognizable other) {
+        return Integer.compare(this.id, other.id);
     }
-    
-    public boolean equals(Recognizable recognizable){
-        if(recognizable.id == this.id){
-            return true;
-        }else{
+
+    public boolean equals(Object o){
+        if(o instanceof Recognizable){
+            Recognizable or = (Recognizable) o;
+            if (this.id == or.id){
+                return true;
+            }
             return false;
         }
+        else {
+            return true;
+        }
+    }
+
+    public boolean equals(Recognizable r){
+        if(this.id == r.id){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static <T extends Recognizable> int setClosingId(Class<T> clazz, int id) {
+        return 0;
+    }
+
+    public static <T extends Recognizable> int getClosingId(Class<T> clazz) {
+        return 0;
     }
 }
