@@ -4,7 +4,7 @@ package AbdulMalikKarimAJmartMR;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-public class Complaint extends Recognizable implements FileParser
+public class Complaint extends Recognizable
 {
     public final Date date;
     public String desc;
@@ -23,10 +23,5 @@ public class Complaint extends Recognizable implements FileParser
         "Complaint{date=" + formattedDate + ", desc='" +this.desc+ "'}";
     }
     
-    @Override
-    public boolean read(String content) {
-        // TODO Auto-generated method stub
-        return false;
-    }
     
 }

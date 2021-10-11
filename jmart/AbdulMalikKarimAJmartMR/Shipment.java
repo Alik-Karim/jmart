@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Shipment implements FileParser
+public class Shipment
 {
     public static class Duration
     {
@@ -62,10 +62,6 @@ public class Shipment implements FileParser
         this.receipt = receipt;
     }
 
-    @Override
-    public boolean read(String content) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    
 }
 

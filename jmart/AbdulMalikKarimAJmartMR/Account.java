@@ -4,7 +4,7 @@ package AbdulMalikKarimAJmartMR;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Account extends Recognizable implements FileParser
+public class Account extends Recognizable
 {
     public String name;
     public String email;
@@ -40,15 +40,6 @@ public class Account extends Recognizable implements FileParser
         }
     }
     
-    @Override
-    public boolean read(String content){
-        return false;
-    }
-
-    @Override
-    public Object write(){
-        return null;
-    }
 
     public static Object newInstance(String content) {
         return null;

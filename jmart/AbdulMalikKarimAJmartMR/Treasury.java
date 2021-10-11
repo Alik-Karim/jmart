@@ -7,7 +7,7 @@ package AbdulMalikKarimAJmartMR;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class PriceTag
+public class Treasury
 {
     public final double COMMISSION_MULTIPLIER = 0.05;
     public final double BOTTOM_PRICE = 20000.0;
@@ -15,16 +15,6 @@ public class PriceTag
     
     double discount;
     double price;
-    
-    public PriceTag(double price){
-        this.price = price;
-        this.discount = 0.0;
-    }
-    
-    public PriceTag(double price, double discount){
-        this.price=price;
-        this.discount=discount;
-    }
     
     public double getAdjustedPrice(){
         return getAdminFee() + getDiscountedPrice();

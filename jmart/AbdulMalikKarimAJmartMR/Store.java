@@ -3,7 +3,7 @@ package AbdulMalikKarimAJmartMR;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class Store extends Recognizable implements FileParser
+public class Store extends Recognizable
 {
     public static final String REGEX_PHONE = "^\\d{9,12}$";
     public static final String REGEX_NAME = "^[A-Z](?!.*(\\s)\\1).{4,20}$";
@@ -27,11 +27,6 @@ public class Store extends Recognizable implements FileParser
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public boolean read(String content) {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
     public String toString() {
         return "name: " + name + "\naddress: " + address + "\nphoneNumber: " + phoneNumber;

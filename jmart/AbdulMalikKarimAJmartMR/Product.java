@@ -1,19 +1,19 @@
 package AbdulMalikKarimAJmartMR;
 
-public class Product extends Recognizable implements FileParser
+public class Product extends Recognizable
 {
     private static int idCounter = 0;
     public String name;
     public int weight;
     public boolean conditionUsed;
-    public PriceTag priceTag;
+    public Treasury priceTag;
     public ProductCategory category ;
     public ProductRating rating;
     public int storeId;
     public Shipment.MultiDuration multiDuration;
 
     public Product(int id, int storeId, String name, 
-    int weight, boolean conditionUsed, PriceTag priceTag,
+    int weight, boolean conditionUsed, Treasury priceTag,
     ProductCategory category, Shipment.MultiDuration multiDuration){
         super(id);
         this.storeId = storeId;

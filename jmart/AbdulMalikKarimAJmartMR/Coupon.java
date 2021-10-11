@@ -7,7 +7,7 @@ package AbdulMalikKarimAJmartMR;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Coupon extends Recognizable implements FileParser
+public abstract class Coupon extends Recognizable
 {
     public String name;
     public int code;
@@ -30,13 +30,13 @@ public abstract class Coupon extends Recognizable implements FileParser
         return used;
     }
     
-    public boolean canApply(PriceTag priceTag){
+    public boolean canApply(Treasury priceTag){
         if (used || priceTag.getAdjustedPrice() < minimum)
             return false;
         return true;
     }
     
-    public double apply(PriceTag priceTag){
+    public double apply(Treasury priceTag){
         used = true;
         double adjustedPrice = priceTag.getAdjustedPrice();
         switch (type)

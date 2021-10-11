@@ -3,7 +3,7 @@ package AbdulMalikKarimAJmartMR;
 import java.util.Date;
 import java.util.ArrayList;
 
-public class Invoice extends Recognizable implements FileParser
+public class Invoice extends Recognizable
 {
     public Date date;
     public int buyerId;
@@ -46,8 +46,5 @@ public class Invoice extends Recognizable implements FileParser
         this.status = Status.WAITING_CONFIRMATION;
     }
     
-    @Override
-    public boolean read(String content){
-        return false;
-    }
+    
 }
