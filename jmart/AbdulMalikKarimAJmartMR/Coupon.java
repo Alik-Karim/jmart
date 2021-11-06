@@ -7,7 +7,7 @@ package AbdulMalikKarimAJmartMR;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Coupon extends Recognizable
+public abstract class Coupon extends Serializable
 {
     public String name;
     public int code;

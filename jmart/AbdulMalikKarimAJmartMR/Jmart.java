@@ -35,5 +35,12 @@ class Jmart {
         {
     	e.printStackTrace();
     }
+        System.out.println("account id:" + new Account(null, null, null, -1).id);
+        System.out.println("account id:" + new Account(null, null, null, -1).id);
+        System.out.println("account id:" + new Account(null, null, null, -1).id);
+
+        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
+        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
+        System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);  
    }
 }

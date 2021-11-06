@@ -1,6 +1,6 @@
 package AbdulMalikKarimAJmartMR;
 
-public class Product extends Recognizable
+public class Product extends Serializable
 {
     private static int idCounter = 0;
     public String name;
