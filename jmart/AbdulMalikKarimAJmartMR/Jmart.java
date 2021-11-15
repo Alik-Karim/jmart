@@ -17,6 +17,11 @@ import java.util.Date;
 
 public class Jmart
 {
+    public static long DELIVERED_LIMIT_MS = 11;
+    public static long ON_DELIVERY_LIMIT_MS = 11;
+    public static long ON_PROGRESS_LIMIT_MS = 11;
+    public static long WAITING_CONF_LIMIT_MS = 11;
+    
     public static List<Product> read(String filepath) throws FileNotFoundException {
         List<Product> products = new ArrayList<>();
         try{
@@ -52,34 +57,74 @@ public class Jmart
         System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
 
         try{
-        	//filter price
-            List<Product> list = read("D:\\download\\OOP prak\\jmart\\jmart\\AbdulMalikKarimAJmartMR\\randomProductList.json ");
-            List<Product> filtered = filterByPrice(list, 20000.0, 25000.0);
-            filtered.forEach(product -> System.out.println(product.price));
-            //filter name
-            List<Product> filteredName = filterByName(list, "gtx", 1, 5);
-            filteredName.forEach(product -> System.out.println(product.name));
-            //filter account
-            List<Product> filteredAccount = filterByAccountId(list, 1, 0, 5);
-            filteredAccount.forEach(product -> System.out.println(product.name));
+            JsonTable<Payment> table = new JsonTable<>(Payment.class, "D:\\download\\OOP prak\\jmart\\jmart\\AbdulMalikKarimAJmartMR\\randomPaymentList.Json");
+            ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);
+            paymentPool.start();
+
+            table.forEach(payment -> paymentPool.add(payment));
+            while(paymentPool.size() !=0);
+            paymentPool.exit();
+
+            while (paymentPool.isAlive());
+            System.out.println("Thread exited successfully");
+            Gson gson = new Gson();
+            table.forEach(payment-> {
+                String history = gson.toJson(payment.history);
+                System.out.println(history);
+                    });
         }catch (Throwable t)
         {
             t.printStackTrace();
         }
-        
-        try{
-            String filepath = "D:\\download\\OOP prak\\jmart\\jmart\\AbdulMalikKarimAJmartMR\\account.json";
+//        try{
+//        	//filter price
+//            List<Product> list = read("D:\\download\\OOP prak\\jmart\\jmart\\AbdulMalikKarimAJmartMR\\randomProductList.json ");
+//            List<Product> filtered = filterByPrice(list, 20000.0, 25000.0);
+//            filtered.forEach(product -> System.out.println(product.price));
+//            //filter name
+//            List<Product> filteredName = filterByName(list, "gtx", 1, 5);
+//            filteredName.forEach(product -> System.out.println(product.name));
+//            //filter account
+//            List<Product> filteredAccount = filterByAccountId(list, 1, 0, 5);
+//            filteredAccount.forEach(product -> System.out.println(product.name));
+//        }catch (Throwable t)
+//        {
+//            t.printStackTrace();
+//        }
+//        
+//        try{
+//            String filepath = "D:\\download\\OOP prak\\jmart\\jmart\\AbdulMalikKarimAJmartMR\\account.json";
+//
+//            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+//            tableAccount.add(new Account("name", "email", "password"));
+//            tableAccount.writeJson();
+//
+//            tableAccount = new JsonTable<>(Account.class, filepath);
+//            tableAccount.forEach(account -> System.out.println(account.toString()));
+//
+//        } catch (Throwable t) {
+//            t.printStackTrace();
+//        }
+    }
+    
+    public static boolean paymentTimekeeper(Payment payment) {
+        Payment.Record record = payment.history.get(payment.history.size() - 1);
+        long elapsed = Math.abs(record.date.getTime() - (new Date()).getTime());
 
-            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
-            tableAccount.add(new Account("name", "email", "password"));
-            tableAccount.writeJson();
-
-            tableAccount = new JsonTable<>(Account.class, filepath);
-            tableAccount.forEach(account -> System.out.println(account.toString()));
-
-        } catch (Throwable t) {
-            t.printStackTrace();
+        if(record.status == Invoice.Status.WAITING_CONFIRMATION && elapsed > WAITING_CONF_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FAILED, "WAITING"));
+            return true;
+        } else if(record.status == Invoice.Status.ON_PROGRESS && elapsed > ON_PROGRESS_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FAILED, "PROGRESS"));
+            return true;
+        } else if(record.status == Invoice.Status.ON_DELIVERY && elapsed > ON_DELIVERY_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.DELIVERED, "DELIVERY"));
+            return false;
+        } else if(record.status == Invoice.Status.DELIVERED && elapsed > DELIVERED_LIMIT_MS) {
+            payment.history.add(new Payment.Record(Invoice.Status.FINISHED, "FINISH"));
+            return true;
         }
+        return false;
     }
     
     private static List<Product> paginate(List<Product> list, int page, int pageSize, Predicate<Product> pred) {
@@ -101,5 +146,7 @@ public class Jmart
         Predicate<Product> predicate = a -> (a.accountId == accountId);
         return paginate(list, page, pageSize, predicate);
     }
+    
+    
 }
 
