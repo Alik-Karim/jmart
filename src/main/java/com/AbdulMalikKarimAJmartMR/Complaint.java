@@ -1,6 +1,6 @@
 package com.AbdulMalikKarimAJmartMR;
 
-
+import com.AbdulMalikKarimAJmartMR.dbjson.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -11,7 +11,7 @@ public class Complaint extends Serializable
 
     public Complaint(int id, String desc)
     {
-        super(id);
+//        super(id);
         this.desc = desc;
         this.date = new Date();
     }

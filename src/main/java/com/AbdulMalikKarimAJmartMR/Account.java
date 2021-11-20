@@ -1,6 +1,6 @@
 package com.AbdulMalikKarimAJmartMR;
 
-
+import com.AbdulMalikKarimAJmartMR.dbjson.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,13 +13,14 @@ public class Account extends Serializable
     public String email;
     public String password;
     public double balance;
-
+    public Store store;
 
     /**
      * Constructor for objects of class Account
      */
     public Account(String name, String email, String password, int i)
     {
+//        super(id);
         this.name = name;
         this.email = email;
         this.password = password;

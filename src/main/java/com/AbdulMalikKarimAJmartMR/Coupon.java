@@ -1,6 +1,6 @@
 package com.AbdulMalikKarimAJmartMR;
 
-
+import com.AbdulMalikKarimAJmartMR.dbjson.Serializable;
 /**
  * Write a description of class Coupon here.
  *
@@ -17,7 +17,7 @@ public abstract class Coupon extends Serializable
     private boolean used;
     
     public Coupon(int id,String name, int code, Type type, double cut, double minimum){
-        super(id);
+//        super(id);
         this.name = name;
         this.code = code;
         this.type = type;

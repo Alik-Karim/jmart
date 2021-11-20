@@ -1,8 +1,9 @@
 package com.AbdulMalikKarimAJmartMR;
 
-
+import com.AbdulMalikKarimAJmartMR.dbjson.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public class Store extends Serializable
 {
     public static final String REGEX_PHONE = "^\\d{9,12}$";
@@ -14,15 +15,14 @@ public class Store extends Serializable
 
 
     public Store(int accountId, String name, String address, String phoneNumber) {
-        super(accountId);
+//        super(accountId);
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
 
-    public Store(Account account, String name, String address, String phoneNumber) {
-        super(account.id);
-        this.name = name;
+    public Store(String name, String address, String phoneNumber) {
+        this.name =name;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
