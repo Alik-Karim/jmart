@@ -1,4 +1,4 @@
-package com.AbdulMalikKarimAJmartMR;
+package AbdulMalikKarimAJmartMR;
 
 
 import java.util.Vector;
