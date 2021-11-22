@@ -15,7 +15,10 @@ public class Treasury
     
     double discount;
     double price;
-    
+
+    public Treasury(double price, double discount) {
+    }
+
     public double getAdjustedPrice(){
         return getAdminFee() + getDiscountedPrice();
     }

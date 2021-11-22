@@ -14,7 +14,7 @@ public abstract class Coupon extends Serializable
     public double cut;
     public Type type;
     public double minimum;
-    private boolean used;
+    public boolean used;
     
     public Coupon(int id,String name, int code, Type type, double cut, double minimum){
 //        super(id);

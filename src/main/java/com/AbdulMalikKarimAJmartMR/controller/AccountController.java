@@ -7,6 +7,9 @@ import com.AbdulMalikKarimAJmartMR.dbjson.JsonAutowired;
 import com.AbdulMalikKarimAJmartMR.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +37,20 @@ public class AccountController implements BasicGetController<Account>
 					@RequestParam String password
 			)
 	{
-		return Algorithm.<Account>find(accountTable, obj -> obj.email.equals(email) && obj.password.equals(password));
+
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		byte[] digest = md.digest(password.getBytes());
+		BigInteger no = new BigInteger(1, digest);
+		String hash = no.toString(16);
+		while (hash.length() < 32) hash = "0" + hash;
+		String finalHash = hash;
+
+		return Algorithm.<Account>find(accountTable, obj -> obj.email.equals(email) && obj.password.equals(finalHash));
 	}
 
 	@PostMapping("/register")
@@ -51,7 +67,19 @@ public class AccountController implements BasicGetController<Account>
 		Matcher matcher2 = REGEX_PATTERN_PASSWORD.matcher(password);
 		if(!matcher2.find()) return null;
 		if(Algorithm.<Account>find(accountTable, obj -> obj.email.equals(email)) != null) return null;
-		Account a = new Account(name, email, password, 0);
+
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		byte[] digest = md.digest(password.getBytes());
+		BigInteger no = new BigInteger(1, digest);
+		String hash = no.toString(16);
+		while (hash.length() < 32) hash = "0" + hash;
+		Account a = new Account(name, email, hash, 0);
+
 		accountTable.add(a);
 		return a;
 	}
