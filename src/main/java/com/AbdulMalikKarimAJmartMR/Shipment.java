@@ -8,60 +8,51 @@ import java.util.Date;
 
 public class Shipment
 {
-    public static class Duration
-    {
-    	public static final SimpleDateFormat ESTIMATION_FORMAT = new SimpleDateFormat("E MMMM dd yyyy");
-    	
-        public static final Duration INSTANT = new Duration((byte) (1 << 0));
-        public static final Duration SAME_DAY = new Duration((byte) (1 << 1));
-        public static final Duration NEXT_DAY = new Duration((byte) (1 << 2));
-        public static final Duration REGULER = new Duration((byte) (1 << 3));
-        public static final Duration KARGO = new Duration((byte) (1 << 4));
-
-        public final byte bit;  
-
-        private Duration(byte bit) { this.bit = bit; }
-        public String getEstimatedArrival(Date reference)
-        {
-        	Calendar cal = Calendar.getInstance();
-            cal.setTime(reference);
-            if (bit == Duration.NEXT_DAY.bit)
-                cal.add(Calendar.DATE, 1);
-            else if (bit == Duration.REGULER.bit)
-                cal.add(Calendar.DATE, 2);
-            else if (bit == Duration.KARGO.bit)
-                cal.add(Calendar.DATE, 5);
-            return ESTIMATION_FORMAT.format(cal.getTime());
-        }
-    }
-
-    public static class MultiDuration {
-        public final byte bit;
-
-        public MultiDuration(Duration... args) {
-            byte flags = 0;
-            for (byte i = 0; i < args.length; ++i)
-                flags |= args[i].bit;
-            bit = flags;
-        }
-
-        public boolean isDuration(Duration reference) {
-            return (bit & reference.bit) != 0;
-        }
-    }
+    public static final SimpleDateFormat ESTIMATION_FORMAT = new SimpleDateFormat("EEE MM dd yyyy");
+    public static final Plan INSTANT = new Plan((byte) (1));
+    public static final Plan SAME_DAY = new Plan((byte) (1 << 1));
+    public static final Plan NEXT_DAY = new Plan((byte) (1 << 2));
+    public static final Plan REGULER = new Plan((byte) (1 << 3));
+    public static final Plan KARGO = new Plan((byte) (1 << 4));
 
     public String address;
-    public int shipmentCost;
-    public Duration duration;
+    public int cost;
+    public byte plan;
     public String receipt;
 
-    public Shipment(String address, int shipmentCost, Duration duration, String receipt) {
+    public Shipment(String address, int cost, byte plan, String receipt)
+    {
         this.address = address;
-        this.shipmentCost = shipmentCost;
-        this.duration = duration;
+        this.cost = cost;
+        this.plan = plan;
         this.receipt = receipt;
     }
 
-    
+    public String getEstimatedArrival(Date reference) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(reference);
+        if (isDuration(Shipment.NEXT_DAY))
+            cal.add(Calendar.DATE, 1);
+        if (isDuration(Shipment.REGULER))
+            cal.add(Calendar.DATE, 2);
+        if (isDuration(Shipment.KARGO))
+            cal.add(Calendar.DATE, 5);
+        return ESTIMATION_FORMAT.format(cal.getTime());
+    }
+
+    public boolean isDuration(Plan reference) {
+        return (plan & reference.bit) != 0;
+    }
+
+    public boolean isDuration(byte object, Plan reference) {
+        return (object & reference.bit) != 0;
+    }
+
+    public static class Plan {
+        public final byte bit;
+        private Plan(byte bit) {
+            this.bit = bit;
+        }
+    }
 }
 
