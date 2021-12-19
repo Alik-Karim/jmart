@@ -7,17 +7,23 @@ import com.AbdulMalikKarimAJmartMR.dbjson.Serializable;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Coupon extends Serializable
+public class Coupon extends Serializable
 {
-    public String name;
-    public int code;
-    public double cut;
-    public Type type;
-    public double minimum;
-    public boolean used;
-    
-    public Coupon(int id,String name, int code, Type type, double cut, double minimum){
-//        super(id);
+    public enum Type{
+        DISCOUNT, REBATE
+    }
+    // instance variables - replace the example below with your own
+    public final int code;
+    public final double cut;
+    public final double minimum;
+    public final String name;
+    public final Type type;
+    private boolean used;
+    /**
+     * Constructor for objects of class Coupon
+     */
+    public Coupon(String name, int code, Type type, double cut, double minimum)
+    {
         this.name = name;
         this.code = code;
         this.type = type;
@@ -25,35 +31,31 @@ public abstract class Coupon extends Serializable
         this.minimum = minimum;
         this.used = false;
     }
-    
-    public boolean isUsed(){
-        return used;
-    }
-    
-    public boolean canApply(Treasury priceTag){
-        if (used || priceTag.getAdjustedPrice() < minimum)
-            return false;
-        return true;
-    }
-    
-    public double apply(Treasury priceTag){
-        used = true;
-        double adjustedPrice = priceTag.getAdjustedPrice();
-        switch (type)
-        {
-            case REBATE:
-                if (adjustedPrice >= cut) return 0.0;
-                return adjustedPrice - cut;
-            case DISCOUNT:
-                if (cut >= 100.0) return 0.0;
-                return adjustedPrice - adjustedPrice * cut;
-        }
-        return 0.0;
-    }
-    
-    public enum Type
+    public double apply(double price, double discount)
     {
-        DISCOUNT, REBATE
+        used = true;
+        if(type == Type.DISCOUNT){
+            if(cut >= 100){
+                return (Treasury.getAdjustedPrice(price, discount) - Treasury.getAdjustedPrice(price, discount) * (100 / 100)); //cut max 100%
+            }else if(cut <= 0){
+                return (Treasury.getAdjustedPrice(price, discount) - Treasury.getAdjustedPrice(price, discount) * (0 / 100)); //cut min 0%
+            }else{
+                return (Treasury.getAdjustedPrice(price, discount) - Treasury.getAdjustedPrice(price, discount) * (cut / 100));
+            }
+        }
+        return (Treasury.getAdjustedPrice(price, cut) - cut);
+    }
+    public boolean canApply(double price, double discount)
+    {
+        if(Treasury.getAdjustedPrice(price, discount) >= minimum && !used){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean isUsed()
+    {
+        return used;
     }
 
 }

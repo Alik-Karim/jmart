@@ -9,30 +9,32 @@ package com.AbdulMalikKarimAJmartMR;
  */
 public class Treasury
 {
-    public final double COMMISSION_MULTIPLIER = 0.05;
-    public final double BOTTOM_PRICE = 20000.0;
-    public final double BOTTOM_FEE = 1000.0;
-    
-    double discount;
-    double price;
+    public static final double BOTTOM_FEE = 1000.0;
+    public static final double BOTTOM_PRICE = 20000.0;
+    public static final double COMMISSION_MULTIPLIER = 0.05;
 
-    public Treasury(double price, double discount) {
+    public static double getAdjustedPrice(double price, double discount)
+    {
+        return getDiscountedPrice(price, discount) + getAdminFee(price, discount);
     }
-
-    public double getAdjustedPrice(){
-        return getAdminFee() + getDiscountedPrice();
-    }
-    
-    public double getAdminFee(){
-        double discountedPrice = getDiscountedPrice();
-        if (discountedPrice < BOTTOM_PRICE)
+    public static double getAdminFee(double price, double discount)
+    {
+        if(getDiscountedPrice(price, discount) < BOTTOM_PRICE){
             return BOTTOM_FEE;
-        return COMMISSION_MULTIPLIER * discountedPrice;
+        }else{
+            return getDiscountedPrice(price, discount) * COMMISSION_MULTIPLIER;
+        }
     }
-    
-    private double getDiscountedPrice(){
-        if(this.discount >= 100.0) return 0.0;
-        double cut = price * discount / 100.0;
-        return price - cut;
+    private static double getDiscountedPrice(double price, double discount)
+    {
+        if(discount > 100.0){
+            discount = 100.0;
+        }
+        if(discount == 100.0){
+            return 0.0;
+        }else{
+            return price * ((100.0 - discount)/100.0);
+        }
     }
+
 }
